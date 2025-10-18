@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Майра кнопка</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url('https://img.freepik.com/premium-photo/cute-watercolor-baby-cats-seamless-pattern_118124-51227.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Фонның үстіне мөлдір қара қабат (контраст үшін) */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.25);
+      z-index: 1;
+    }
+
+    .card {
+      position: relative;
+      z-index: 2; /* үстіңгі қабатқа шығару */
+      background: rgba(0,0,0,0.4);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      max-width: 420px;
+      width: 100%;
+    }
+
+    .top-photo {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 4px solid rgba(255,255,255,0.9);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+      background: rgba(255,255,255,0.05);
+    }
+
+    button {
+      background: rgba(255, 255, 255, 0.92);
+      border: none;
+      padding: 18px 40px;
+      font-size: 22px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: transform .12s ease, box-shadow .12s ease;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+      color: #111;
+      font-weight: 600;
+    }
+
+    button:active { transform: scale(0.97); }
+    button:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0,0,0,0.45); }
+
+    #counter {
+      font-size: 20px;
+      background: rgba(0,0,0,0.5);
+      padding: 8px 16px;
+      border-radius: 12px;
+      color: #fff;
+    }
+
+    @media (max-width:480px) {
+      .top-photo { width: 160px; height: 160px; }
+      button { padding: 14px 28px; font-size: 18px; }
+      .card { max-width: 320px; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div> <!-- үстіңгі қабат контраст үшін -->
+  <div class="card">
+    <img class="top-photo" src="https://i.pinimg.com/originals/e1/a1/d3/e1a1d3eceb8cef7260e280f02743be7d.jpg" alt="Фото" />
+    <button id="soundButton">Мяу!</button>
+    <div id="counter">Бастын: 0 рет</div>
+  </div>
+
+  <audio id="sound" src="cute-kittens.mp3"></audio>
+
+  <script>
+    const button = document.getElementById('soundButton');
+    const sound = document.getElementById('sound');
+    const counter = document.getElementById('counter');
+    let clicks = 0;
+
+    button.addEventListener('click', async () => {
+      clicks++;
+      counter.textContent = 'Бастын: ' + clicks + ' рет';
+      try {
+        sound.currentTime = 0;
+        await sound.play();
+      } catch (err) {
+        console.log('Дыбыс қате:', err);
+      }
+    });
+  </script>
+</body>
+</html>
